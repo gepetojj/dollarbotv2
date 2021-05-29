@@ -1,0 +1,38 @@
+import Discord from "discord.js";
+import { IBotCommand } from "./IBotCommand";
+import { dayjs } from "../loaders/index";
+
+export default class PingCommand implements IBotCommand {
+	name: string;
+	syntax: string;
+	arguments: boolean;
+	guildOnly: boolean;
+	description: string;
+	aliases?: string[];
+	cooldown?: number;
+
+	constructor() {
+		this.name = "ping";
+		this.syntax = "ping";
+		this.arguments = false;
+		this.guildOnly = false;
+		this.description = "Faz o bot responder com um 'pong'.";
+	}
+
+	async command(message: Discord.Message) {
+		const messageSendedAt = message.createdTimestamp;
+		const nowInTimestamp = dayjs().valueOf();
+		const latency = dayjs(nowInTimestamp - messageSendedAt).format("SSS");
+
+		const embed = new Discord.MessageEmbed()
+			.setColor("#0079DB")
+			.setTitle("Teste de latência.")
+			.addField("Latência do bot", `${latency}ms`)
+			.setFooter(
+				`Comando executado por: ${message.author.tag}`,
+				message.author.avatarURL()
+			);
+
+		await message.reply(embed);
+	}
+}

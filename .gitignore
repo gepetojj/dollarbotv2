@@ -1,0 +1,6 @@
+/node_modules
+/.python_env
+/build
+/.vscode
+*.log
+.env

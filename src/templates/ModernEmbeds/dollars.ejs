@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	</head>
+	<body>
+		<style>
+			@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+			body {
+				background: #0079db;
+				width: 333px;
+				height: 160px;
+			}
+			h3,
+			p {
+				font-family: "Poppins", sans-serif;
+				margin: 0;
+				color: #000000;
+			}
+			.card {
+				display: flex;
+				flex-direction: row;
+				justify-content: center;
+				border-radius: 4px;
+				padding: 10px;
+				margin: 50px 5px;
+				width: 300px;
+				background: #83d2ff8c;
+				box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+				backdrop-filter: blur(6px);
+				-webkit-backdrop-filter: blur(6px);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+			}
+			.user-info {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				margin-left: 15px;
+			}
+			.user-info-data {
+				padding-top: 5px;
+			}
+		</style>
+		<div class="card">
+			<div class="user-avatar">
+				<img src="<%= avatar %>" alt="avatar do usuario" />
+			</div>
+			<div class="user-info">
+				<div class="user-info-title">
+					<h3>Saldo na conta:</h3>
+				</div>
+				<div class="user-info-data">
+					<p>$ <%= dollars %></p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
