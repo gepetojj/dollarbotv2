@@ -1,4 +1,5 @@
 import Discord from "discord.js";
+import cache from "memory-cache";
 import { Client } from "../discord.js/Client";
 import {
 	AdminSettingsEmbed,
@@ -8,7 +9,9 @@ import {
 } from "../templates";
 import { FirebaseGuildRepository } from "../repositories";
 import { IBotCommand } from "./CommandsLoader";
-import { CommandsLoader, Logger } from "./index";
+import { CommandsLoader, Logger, dayjs } from "./index";
+import { DBGuild } from "../entities";
+import { AwesomeAPIProvider } from "../providers";
 
 export interface IDiscordLoaderSettings {
 	richPresence?: {
@@ -23,10 +26,15 @@ export class DiscordLoader {
 	richPresence: string[];
 	richPresenceTimeout: number;
 
+	guildsCache: cache.CacheClass<string, DBGuild>;
+	dollarMessageCache: Discord.Message[];
+
 	constructor(settings?: IDiscordLoaderSettings) {
 		this.client = new Client();
 		this.richPresence = settings.richPresence.options || ["dollarbot"];
 		this.richPresenceTimeout = settings.richPresence.timeout || 7000;
+		this.guildsCache = new cache.Cache<string, DBGuild>();
+		this.dollarMessageCache = [];
 	}
 
 	private async onGuildCreate(guild: Discord.Guild) {
@@ -62,12 +70,14 @@ export class DiscordLoader {
 					reason: "O bot 'dollarbot' precisa deste canal para funcionar corretamente. NÃO O EXCLUA.",
 				}
 			);
-			await guildRepository.createGuild({
+			const guildData = new DBGuild({
 				id: guild.id,
 				dbPublicChannelId: dbPublicChannel.id,
 				dbAdminChannelId: dbAdminChannel.id,
 				adminRoleId: "",
 			});
+			await guildRepository.createGuild(guildData);
+			this.guildsCache.put(guildData.id, guildData);
 
 			const adminSettingsEmbed = new AdminSettingsEmbed().generate(
 				guild.owner.user,
@@ -211,30 +221,131 @@ export class DiscordLoader {
 		}
 	}
 
+	private onReady(client: Client) {
+		const guildRepository = new FirebaseGuildRepository();
+		client.setInterval(async () => {
+			const richPresenceChoice = Math.floor(
+				Math.random() * this.richPresence.length
+			);
+			await client.user.setActivity(
+				this.richPresence[richPresenceChoice],
+				{
+					type: "PLAYING",
+				}
+			);
+		}, this.richPresenceTimeout);
+
+		Logger.info("discord bot is online.");
+		const commands = new CommandsLoader().getCommands();
+		commands.forEach((command) => {
+			client.commands.set(command.name, command);
+		});
+		Logger.info("bot commands loaded.");
+
+		guildRepository
+			.getAllGuilds()
+			.then((guilds) => {
+				client.guilds.cache.forEach((guild) => {
+					const guildDatabaseData = guilds.filter((guildDoc) => {
+						return guildDoc.id === guild.id;
+					})[0];
+					const guildData = new DBGuild({
+						id: guild.id,
+						dbPublicChannelId: guildDatabaseData.dbPublicChannelId,
+						dbAdminChannelId: guildDatabaseData.dbAdminChannelId,
+						adminRoleId: guildDatabaseData.adminRoleId,
+					});
+					this.guildsCache.put(guild.id, guildData);
+				});
+				Logger.info("guilds cache loaded.");
+			})
+			.catch(() => {
+				Logger.error("cache loading failed.");
+			});
+
+		client.setInterval(() => {
+			this.dollarValueLoop(client);
+		}, 5000);
+	}
+
+	private dollarValueLoop(client: Client) {
+		const embed = new Discord.MessageEmbed()
+			.setColor("#0079DB")
+			.setTitle("Valor do dólar");
+		const dollarValueProvider = new AwesomeAPIProvider();
+		if (this.dollarMessageCache.length === 0) {
+			const guildsKeys = this.guildsCache.keys();
+			guildsKeys.forEach(async (guildKey) => {
+				try {
+					const guild = this.guildsCache.get(guildKey);
+					const channel = client.channels.cache.get(
+						guild.dbPublicChannelId
+					) as Discord.TextChannel;
+					if (channel) {
+						await channel.bulkDelete(5);
+						dollarValueProvider
+							.getLastDollarValue()
+							.then(async ({ value }) => {
+								const message = await channel.send(
+									embed
+										.addField(
+											"Valor atual do dólar norte-americano:",
+											`$1 --> R$${value}`
+										)
+										.setFooter(
+											`Atualizado em: ${dayjs().format(
+												"hh:mm:ssa DD/MM"
+											)}`,
+											client.user.avatarURL()
+										)
+								);
+								this.dollarMessageCache.push(message);
+							})
+							.catch(() => {
+								Logger.error(
+									`error while attempting to get dollar values.`
+								);
+							});
+					}
+				} catch (err) {
+					Logger.error(
+						`error while attempting to send loop message: ${err}`
+					);
+				}
+			});
+		} else {
+			dollarValueProvider
+				.getLastDollarValue()
+				.then(async ({ value }) => {
+					this.dollarMessageCache.forEach(async (message) => {
+						await message.edit(
+							embed
+								.addField(
+									"Valor atual do dólar norte-americano:",
+									`$1 --> R$${value}`
+								)
+								.setFooter(
+									`Atualizado em: ${dayjs().format(
+										"hh:mm:ssa DD/MM"
+									)}`,
+									client.user.avatarURL()
+								)
+						);
+					});
+				})
+				.catch(() => {
+					Logger.error(
+						`error while attempting to get dollar values.`
+					);
+				});
+		}
+	}
+
 	load(token: string) {
 		const client = this.client;
 		client.commands = new Discord.Collection();
-		client.on("ready", () => {
-			client.setInterval(async () => {
-				const richPresenceChoice = Math.floor(
-					Math.random() * this.richPresence.length
-				);
-				await client.user.setActivity(
-					this.richPresence[richPresenceChoice],
-					{
-						type: "PLAYING",
-					}
-				);
-			}, this.richPresenceTimeout);
 
-			Logger.info("discord bot is online.");
-			const commands = new CommandsLoader().getCommands();
-			commands.forEach((command) => {
-				client.commands.set(command.name, command);
-			});
-			Logger.info("bot commands loaded.");
-		});
-
+		client.on("ready", () => this.onReady(client));
 		client.on("message", (message) => this.onMessage(message, client));
 		client.on("guildCreate", (guild) => this.onGuildCreate(guild));
 		client.on("guildDelete", (guild) => this.onGuildDelete(guild, client));
