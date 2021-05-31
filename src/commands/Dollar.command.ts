@@ -20,6 +20,7 @@ export default class DollarCommand implements IBotCommand {
 		this.arguments = false;
 		this.guildOnly = false;
 		this.description = "Informa a última variação do dólar.";
+		this.cooldown = 5000;
 	}
 
 	async command(message: Discord.Message) {

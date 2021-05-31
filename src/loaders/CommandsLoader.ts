@@ -1,20 +1,8 @@
 import fs from "fs";
 import path from "path";
-import Discord from "discord.js";
 
 import config from "../config";
-
-export interface IBotCommand {
-	name: string;
-	syntax: string;
-	arguments: boolean;
-	guildOnly: boolean;
-	description: string;
-	aliases?: string[];
-	cooldown?: number;
-	execute: (message: Discord.Message, args?: string[]) => Promise<void>;
-}
-
+import { IBotCommand } from "../commands/IBotCommand";
 export class CommandsLoader {
 	commandsPath: string;
 	commandsList: string[];
@@ -34,17 +22,7 @@ export class CommandsLoader {
 			const Command = require(commandPath);
 
 			const command = new Command.default();
-			const commandMap = {
-				name: command.name,
-				syntax: command.syntax,
-				arguments: command.arguments,
-				guildOnly: command.guildOnly,
-				description: command.description,
-				aliases: command.aliases,
-				cooldown: command.cooldown,
-				execute: command.command,
-			};
-			this.commandsMap.push(commandMap);
+			this.commandsMap.push(command);
 		}
 	}
 

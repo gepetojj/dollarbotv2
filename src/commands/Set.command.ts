@@ -4,7 +4,7 @@ import { Logger } from "../loaders";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
 
-export default class DollarsCommand implements IBotCommand {
+export default class SetCommand implements IBotCommand {
 	name: string;
 	syntax: string;
 	arguments: boolean;
@@ -15,7 +15,7 @@ export default class DollarsCommand implements IBotCommand {
 
 	constructor() {
 		this.name = "set";
-		this.syntax = "set";
+		this.syntax = "set {opção} {opcional: argumentos extras}";
 		this.arguments = true;
 		this.guildOnly = true;
 		this.description = "Sincroniza o servidor com o banco de dados.";

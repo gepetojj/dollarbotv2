@@ -5,7 +5,7 @@ import { Logger, ModernEmbedsLoader } from "../loaders";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
 
-export default class DollarsCommand implements IBotCommand {
+export default class SyncCommand implements IBotCommand {
 	name: string;
 	syntax: string;
 	arguments: boolean;

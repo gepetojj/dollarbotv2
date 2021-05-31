@@ -8,7 +8,7 @@ import {
 	WelcomeEmbed,
 } from "../templates";
 import { FirebaseGuildRepository } from "../repositories";
-import { IBotCommand } from "./CommandsLoader";
+import { IBotCommand } from "../commands/IBotCommand";
 import { CommandsLoader, Logger, dayjs } from "./index";
 import { DBGuild } from "../entities";
 import { AwesomeAPIProvider } from "../providers";
@@ -20,6 +20,11 @@ export interface IDiscordLoaderSettings {
 	};
 }
 
+export interface ITypeRaceCache {
+	phrase: string;
+	winners: { id: string; time: number }[];
+}
+
 export class DiscordLoader {
 	client: Client;
 	clientToken: string;
@@ -28,6 +33,7 @@ export class DiscordLoader {
 
 	guildsCache: cache.CacheClass<string, DBGuild>;
 	dollarMessageCache: Discord.Message[];
+	typeRaceCache: cache.CacheClass<string, ITypeRaceCache>;
 
 	constructor(settings?: IDiscordLoaderSettings) {
 		this.client = new Client();
@@ -35,6 +41,7 @@ export class DiscordLoader {
 		this.richPresenceTimeout = settings.richPresence.timeout || 7000;
 		this.guildsCache = new cache.Cache<string, DBGuild>();
 		this.dollarMessageCache = [];
+		this.typeRaceCache = new cache.Cache<string, ITypeRaceCache>();
 	}
 
 	private async onGuildCreate(guild: Discord.Guild) {
@@ -202,7 +209,7 @@ export class DiscordLoader {
 			);
 
 		try {
-			await command.execute(message, args);
+			await command.command(message, args, this.typeRaceCache);
 		} catch (err) {
 			message.reply(
 				new CommandErrorsEmbed()

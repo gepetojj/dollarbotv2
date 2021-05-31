@@ -3,7 +3,7 @@ import { dayjs } from "../loaders";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
 
-export default class DollarsCommand implements IBotCommand {
+export default class SayCommand implements IBotCommand {
 	name: string;
 	syntax: string;
 	arguments: boolean;
@@ -14,7 +14,7 @@ export default class DollarsCommand implements IBotCommand {
 
 	constructor() {
 		this.name = "say";
-		this.syntax = "say";
+		this.syntax = "say {opcional: -s} {mensagem}";
 		this.arguments = true;
 		this.guildOnly = true;
 		this.description = "Fala a frase pedida.";

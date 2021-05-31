@@ -9,5 +9,9 @@ export interface IBotCommand {
 	aliases?: string[];
 	cooldown?: number;
 
-	command(message: Discord.Message, args?: string[]): Promise<any>;
+	command(
+		message: Discord.Message,
+		args?: string[],
+		...extra: any[]
+	): Promise<void>;
 }

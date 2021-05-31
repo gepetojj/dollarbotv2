@@ -16,7 +16,7 @@ export default class PingCommand implements IBotCommand {
 		this.syntax = "ping";
 		this.arguments = false;
 		this.guildOnly = false;
-		this.description = "Faz o bot responder com um 'pong'.";
+		this.description = "Informa a latência do bot.";
 	}
 
 	async command(message: Discord.Message) {

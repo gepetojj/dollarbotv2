@@ -4,7 +4,7 @@ import { AwesomeAPIProvider } from "../providers";
 import { CommandErrorsEmbed } from "../templates";
 import { IBotCommand } from "./IBotCommand";
 
-export default class DollarCommand implements IBotCommand {
+export default class DollarHCommand implements IBotCommand {
 	name: string;
 	syntax: string;
 	arguments: boolean;
@@ -26,6 +26,7 @@ export default class DollarCommand implements IBotCommand {
 		this.arguments = true;
 		this.guildOnly = false;
 		this.description = "Informa a variação do dólar em um tempo definido.";
+		this.cooldown = 5000;
 	}
 
 	async command(message: Discord.Message, args: string[]) {
@@ -43,7 +44,8 @@ export default class DollarCommand implements IBotCommand {
 
 			try {
 				message.channel.stopTyping(true);
-				return message.reply(embed);
+				message.reply(embed);
+				return;
 			} catch (err) {
 				message.channel.stopTyping(true);
 				Logger.error(

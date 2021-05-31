@@ -18,7 +18,7 @@ export class FirebaseGuildRepository implements IGuildRepository {
 					return reject("Este servidor já está cadastrado.");
 				}
 
-				await this.collection.doc(guild.id).create({...guild});
+				await this.collection.doc(guild.id).create({ ...guild });
 				return resolve();
 			} catch (err) {
 				Logger.error(`error while attempting to create guild: ${err}`);
@@ -78,7 +78,7 @@ export class FirebaseGuildRepository implements IGuildRepository {
 				const guilds = await this.collection.get();
 
 				if (guilds.empty) {
-					return reject("Nenhum servidor cadastrado.");
+					return resolve([]);
 				}
 
 				let guildsFormatted: DBGuild[] = [];
@@ -96,7 +96,9 @@ export class FirebaseGuildRepository implements IGuildRepository {
 
 				return resolve(guildsFormatted);
 			} catch (err) {
-				Logger.error(`error while attempting to get all guilds: ${err.message}`);
+				Logger.error(
+					`error while attempting to get all guilds: ${err.message}`
+				);
 				return reject(
 					"Houve um erro ao tentar acessar o banco de dados."
 				);

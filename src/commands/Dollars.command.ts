@@ -17,7 +17,7 @@ export default class DollarsCommand implements IBotCommand {
 	constructor() {
 		this.name = "dollars";
 		this.syntax = "dollars";
-		this.aliases = ["dolars", "dólares"];
+		this.aliases = ["dolares", "dólares"];
 		this.arguments = false;
 		this.guildOnly = false;
 		this.description = "Informa o saldo do usuário.";
