@@ -12,7 +12,7 @@ const config = {
 	curl: String(process.env.CURL),
 
 	richPresence: {
-		options: ["teste 1", "teste 2", "teste 3", "teste 4"],
+		options: ["monopoly.", "dólares fora.", "jogo do bixo.", "tempo fora."],
 		timeout: 7000,
 	},
 };
