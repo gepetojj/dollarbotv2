@@ -1,12 +1,12 @@
 {
 	"name": "dollarbotv2",
-	"version": "1.2.2",
+	"version": "1.2.4",
 	"description": "Um bot feito para o discord que tem funções relacionadas ao valor do dólar.",
 	"main": "build/main.js",
 	"author": "Gepetojj",
 	"license": "MIT",
 	"scripts": {
-		"start": "pm2-runtime start ./build/main.js -i 4",
+		"start": "pm2-runtime start ./build/main.js -i 1",
 		"dev": "tsnd --transpile-only --respawn --rs --ignore-watch node_modules src/main.ts",
 		"build": "tsc"
 	},
