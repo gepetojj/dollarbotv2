@@ -64,7 +64,7 @@ export default class SayCommand implements IBotCommand {
 				message.author.avatarURL()
 			);
 		} else {
-			embed.setFooter(`Enviada as: ${dayjs().format("hh:mm:ssa")}`);
+			embed.setFooter(`Enviada as: ${dayjs().tz().format("hh:mm:ssa")}`);
 		}
 
 		message.channel.stopTyping(true);

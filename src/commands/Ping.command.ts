@@ -22,7 +22,9 @@ export default class PingCommand implements IBotCommand {
 	async command(message: Discord.Message) {
 		const messageSendedAt = message.createdTimestamp;
 		const nowInTimestamp = dayjs().valueOf();
-		const latency = dayjs(nowInTimestamp - messageSendedAt).format("SSS");
+		const latency = dayjs(nowInTimestamp - messageSendedAt)
+			.tz()
+			.format("SSS");
 
 		const embed = new Discord.MessageEmbed()
 			.setColor("#0079DB")

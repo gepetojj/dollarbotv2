@@ -1,7 +1,6 @@
 import Discord from "discord.js";
-import { GepetoServicesChartProvider } from "../providers";
 import { FirebaseWalletRepository } from "../repositories";
-import { Logger, ModernEmbedsLoader } from "../loaders";
+import { Logger } from "../loaders";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
 

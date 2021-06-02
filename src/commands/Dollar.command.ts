@@ -50,7 +50,7 @@ export default class DollarCommand implements IBotCommand {
 					.setFooter(
 						`Este valor foi atualizado em: ${dayjs(
 							lastValue.timestamp
-						).format("hh:mma DD/MM/YYYY")}`,
+						).tz().format("hh:mma DD/MM/YYYY")}`,
 						message.author.avatarURL()
 					);
 

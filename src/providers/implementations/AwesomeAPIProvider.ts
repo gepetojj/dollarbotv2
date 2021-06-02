@@ -31,7 +31,7 @@ export class AwesomeAPIProvider implements IDollarValueProvider {
 				const dataFormatted: IDollarValue = {
 					high: Number(Number(data[0]).toFixed(2)),
 					value: Number(Number(data[1]).toFixed(2)),
-					timestamp: dayjs(data[2]).valueOf(),
+					timestamp: dayjs(data[2]).tz().valueOf(),
 				};
 				return resolve(dataFormatted);
 			} catch (err) {
@@ -62,7 +62,7 @@ export class AwesomeAPIProvider implements IDollarValueProvider {
 						return dataFormatted.push({
 							high: Number(Number(doc.high).toFixed(2)),
 							value: Number(Number(doc.low).toFixed(2)),
-							timestamp: dayjs(doc.create_date).valueOf(),
+							timestamp: dayjs(doc.create_date).tz().valueOf(),
 						});
 					}
 				);

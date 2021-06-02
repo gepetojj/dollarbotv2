@@ -57,6 +57,7 @@ export default class DollarPlotCommand implements IBotCommand {
 				lastValues.forEach((doc, index) => {
 					days.push(
 						dayjs()
+							.tz()
 							.subtract(index + 1, "days")
 							.format("DD/MM")
 					);

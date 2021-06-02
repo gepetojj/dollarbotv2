@@ -53,9 +53,11 @@ export class ModernEmbedsLoader {
 									return reject();
 								}
 
-								const imageName = `${dayjs().format(
-									"DD-MM-YYYY-"
-								)}${crypto.randomBytes(5).toString("hex")}.png`;
+								const imageName = `${dayjs()
+									.tz()
+									.format("DD-MM-YYYY-")}${crypto
+									.randomBytes(5)
+									.toString("hex")}.png`;
 								nodeHtmlToImage({
 									html: templateHtml,
 									quality: 100,

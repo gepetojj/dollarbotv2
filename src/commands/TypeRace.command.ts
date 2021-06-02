@@ -89,7 +89,7 @@ export default class TypeRaceCommand implements IBotCommand {
 						message.author.avatarURL()
 					);
 				await messageSended.edit(raceEmbed);
-				const raceStarted = dayjs().valueOf();
+				const raceStarted = dayjs().tz().valueOf();
 
 				while (true) {
 					await new Promise<void>((resolve) => {
@@ -121,7 +121,9 @@ export default class TypeRaceCommand implements IBotCommand {
 							`${index + 1}º lugar`,
 							`${winnerUser.user.username}, em ${dayjs(
 								winner.time - raceStarted
-							).format("ss")} segundos.`
+							)
+								.tz()
+								.format("ss")} segundos.`
 						);
 					});
 				} else {
@@ -164,7 +166,10 @@ export default class TypeRaceCommand implements IBotCommand {
 						phrase: answer.phrase,
 						winners: [
 							...answer.winners,
-							{ id: message.author.id, time: dayjs().valueOf() },
+							{
+								id: message.author.id,
+								time: dayjs().tz().valueOf(),
+							},
 						],
 					});
 				}

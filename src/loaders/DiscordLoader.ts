@@ -276,9 +276,6 @@ export class DiscordLoader {
 	}
 
 	private dollarValueLoop(client: Client) {
-		const embed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
-			.setTitle("Valor do dólar");
 		const dollarValueProvider = new AwesomeAPIProvider();
 		if (this.dollarMessageCache.length === 0) {
 			const guildsKeys = this.guildsCache.keys();
@@ -293,19 +290,20 @@ export class DiscordLoader {
 						dollarValueProvider
 							.getLastDollarValue()
 							.then(async ({ value }) => {
-								const message = await channel.send(
-									embed
-										.addField(
-											"Valor atual do dólar norte-americano:",
-											`$1 --> R$${value}`
-										)
-										.setFooter(
-											`Atualizado em: ${dayjs().format(
-												"hh:mm:ssa DD/MM"
-											)}`,
-											client.user.avatarURL()
-										)
-								);
+								const embed = new Discord.MessageEmbed()
+									.setColor("#0079DB")
+									.setTitle("Valor do dólar")
+									.addField(
+										"Valor atual do dólar norte-americano:",
+										`$1 --> R$${value}`
+									)
+									.setFooter(
+										`Atualizado em: ${dayjs()
+											.tz()
+											.format("hh:mm:ssa DD/MM")}`,
+										client.user.avatarURL()
+									);
+								const message = await channel.send(embed);
 								this.dollarMessageCache.push(message);
 							})
 							.catch(() => {
@@ -324,20 +322,21 @@ export class DiscordLoader {
 			dollarValueProvider
 				.getLastDollarValue()
 				.then(async ({ value }) => {
-					this.dollarMessageCache.forEach(async (message) => {
-						await message.edit(
-							embed
-								.addField(
-									"Valor atual do dólar norte-americano:",
-									`$1 --> R$${value}`
-								)
-								.setFooter(
-									`Atualizado em: ${dayjs().format(
-										"hh:mm:ssa DD/MM"
-									)}`,
-									client.user.avatarURL()
-								)
+					const embed = new Discord.MessageEmbed()
+						.setColor("#0079DB")
+						.setTitle("Valor do dólar")
+						.addField(
+							"Valor atual do dólar norte-americano:",
+							`$1 --> R$${value}`
+						)
+						.setFooter(
+							`Atualizado em: ${dayjs()
+								.tz()
+								.format("hh:mm:ssa DD/MM")}`,
+							client.user.avatarURL()
 						);
+					this.dollarMessageCache.forEach(async (message) => {
+						await message.edit(embed);
 					});
 				})
 				.catch(() => {
