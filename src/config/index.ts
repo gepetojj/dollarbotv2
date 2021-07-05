@@ -15,6 +15,8 @@ const config = {
 		options: ["monopoly.", "dólares fora.", "jogo do bixo.", "tempo fora."],
 		timeout: 7000,
 	},
+	primaryColor: "#7289DA",
+	version: "1.3.2",
 };
 
 export default config;

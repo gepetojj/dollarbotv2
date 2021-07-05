@@ -169,6 +169,27 @@ export class DiscordLoader {
 	}
 
 	private async onMessage(message: Discord.Message, client: Client) {
+		if (message.content === `<@!${client.user.id}>`) {
+			const command = client.commands.get("help");
+			try {
+				await command.command(message);
+			} catch (err) {
+				message.reply(
+					new CommandErrorsEmbed()
+						.generate(message)
+						.addField("Causa do erro:", "Erro inesperado.")
+				);
+
+				Logger.error(`error while executing command: ${err.message}`);
+				Logger.debug(
+					`guild where this error happened: ${message.guild.id}`
+				);
+				Logger.debug(`command requested: ${command.name}`);
+				Logger.debug(
+					`message sender: ${message.author.id} / ${message.author.tag}`
+				);
+			}
+		}
 		if (!message.content.startsWith(">") || message.author.bot) return;
 
 		const args = message.content.slice(">".length).split(" ");

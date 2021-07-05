@@ -16,13 +16,7 @@ export default class DollarHCommand implements IBotCommand {
 	constructor() {
 		this.name = "dollarh";
 		this.syntax = "dollarh {dias}";
-		this.aliases = [
-			"dolarh",
-			"dólarh",
-			"dollarhistory",
-			"dolarhistory",
-			"dólarhistory",
-		];
+		this.aliases = ["dolarh", "dólarh", "dollarhistory", "dolarhistory"];
 		this.arguments = true;
 		this.guildOnly = false;
 		this.description = "Informa a variação do dólar em um tempo definido.";
