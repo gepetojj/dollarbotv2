@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 {
 	"name": "dollarbotv2",
 	"version": "1.3.2",
@@ -39,45 +38,3 @@
 		"typescript": "^4.3.2"
 	}
 }
-=======
-{
-	"name": "dollarbotv2",
-	"version": "1.2.5",
-	"description": "Um bot feito para o discord que tem funções relacionadas ao valor do dólar.",
-	"main": "build/main.js",
-	"author": "Gepetojj",
-	"license": "MIT",
-	"scripts": {
-		"start": "pm2-runtime start ./build/main.js -i 1",
-		"dev": "tsnd --transpile-only --respawn --rs --ignore-watch node_modules src/main.ts",
-		"build": "tsc"
-	},
-	"dependencies": {
-		"@types/ejs": "^3.0.6",
-		"axios": "^0.21.1",
-		"bufferutil": "^4.0.3",
-		"dayjs": "^1.10.5",
-		"discord.js": "^12.5.3",
-		"dotenv": "^10.0.0",
-		"ejs": "^3.1.6",
-		"firebase-admin": "^9.9.0",
-		"fs": "^0.0.1-security",
-		"memory-cache": "^0.2.0",
-		"node-html-to-image": "^3.1.0",
-		"path": "^0.12.7",
-		"pino": "^6.11.3",
-		"pino-pretty": "^5.0.0",
-		"pm2": "^4.5.6",
-		"python-shell": "^3.0.0",
-		"utf-8-validate": "^5.0.5"
-	},
-	"devDependencies": {
-		"@types/memory-cache": "^0.2.1",
-		"@types/node": "^15.6.1",
-		"@types/pino": "^6.3.8",
-		"@types/pino-pretty": "^4.7.0",
-		"ts-node-dev": "^1.1.6",
-		"typescript": "^4.3.2"
-	}
-}
->>>>>>> d55c329de5feeeaaabae95e4cab8cf5216f33c9b
