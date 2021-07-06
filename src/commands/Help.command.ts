@@ -133,8 +133,14 @@ export default class PingCommand implements IBotCommand {
 						"Comandos:",
 						new CommandsLoader().commandsList.length
 					)
-					.addField("Channel:", config.dev ? "dev-unstable" : "stable")
-					.addField("Host:", "Heroku US heroku-20")
+					.addField(
+						"Channel:",
+						config.dev ? "dev-unstable" : "stable"
+					)
+					.addField(
+						"Host:",
+						config.dev ? "localhost" : "Heroku US heroku-20"
+					)
 					.addField(
 						"Agradecimentos:",
 						"<@!830829009029562398> - Tester"
