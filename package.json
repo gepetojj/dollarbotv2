@@ -6,9 +6,9 @@
 	"author": "Gepetojj",
 	"license": "MIT",
 	"scripts": {
-		"start": "pm2-runtime start ./build/bundle.js -i 1",
+		"start": "pm2-runtime start ./build/main.js -i 1",
 		"dev": "tsnd --transpile-only --respawn --rs --ignore-watch node_modules src/main.ts",
-		"build": "webpack"
+		"build": "tsc"
 	},
 	"dependencies": {
 		"axios": "^0.21.1",
@@ -16,6 +16,7 @@
 		"dayjs": "^1.10.5",
 		"discord.js": "^12.5.3",
 		"dotenv": "^10.0.0",
+		"dotenv-webpack": "^7.0.3",
 		"ejs": "^3.1.6",
 		"ffmpeg-static": "^4.4.0",
 		"firebase": "^8.7.1",

@@ -1,6 +1,7 @@
 const path = require("path");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
 const NodeExternals = require("webpack-node-externals");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
 	target: "node",
@@ -8,7 +9,7 @@ module.exports = {
 	entry: {
 		main: "./src/main.ts",
 	},
-	plugins: [new NodePolyfillPlugin()],
+	plugins: [new NodePolyfillPlugin(), new Dotenv()],
 	output: {
 		path: path.resolve(__dirname, "./build"),
 		filename: "bundle.js",
