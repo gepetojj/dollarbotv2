@@ -16,7 +16,7 @@ const config = {
 		timeout: 7000,
 	},
 	primaryColor: "#7289DA",
-	version: "1.3.5",
+	version: "1.3.7",
 };
 
 export default config;
