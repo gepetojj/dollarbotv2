@@ -3,6 +3,7 @@ import { FirebaseWalletRepository } from "../repositories";
 import { Logger } from "../loaders";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
+import config from "../config";
 
 export default class SyncCommand implements IBotCommand {
 	name: string;
@@ -26,13 +27,13 @@ export default class SyncCommand implements IBotCommand {
 		message.channel.startTyping();
 
 		const firstEmbed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Sincronizando")
 			.addField("Carregando...", "Carregando...");
 		const messageSended = await message.reply(firstEmbed);
 
 		const embed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Sincronização")
 			.addField("Sucesso!", "Usuário sincronizado com sucesso.")
 			.setFooter(

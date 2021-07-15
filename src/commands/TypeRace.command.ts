@@ -5,6 +5,7 @@ import { CommandErrorsEmbed } from "../templates";
 import { LocalTypeRaceRepository } from "../extensions/TypeRace";
 import { ITypeRaceCache } from "../loaders/DiscordLoader";
 import { IBotCommand } from "./IBotCommand";
+import config from "../config";
 
 export default class TypeRaceCommand implements IBotCommand {
 	name: string;
@@ -34,7 +35,7 @@ export default class TypeRaceCommand implements IBotCommand {
 
 		if (args[0] === "start") {
 			const firstEmbed = new Discord.MessageEmbed()
-				.setColor("#0079DB")
+				.setColor(config.primaryColor)
 				.setTitle("Criando corrida")
 				.addField("Carregando...", "Carregando...");
 			const messageSended = await message.reply(firstEmbed);
@@ -43,7 +44,7 @@ export default class TypeRaceCommand implements IBotCommand {
 				cache.put(message.channel.id, { phrase, winners: [] });
 				let secondsToStartRace = 5;
 				const embed = new Discord.MessageEmbed()
-					.setColor("#0079DB")
+					.setColor(config.primaryColor)
 					.setTitle("Corrida de digitação")
 					.addField(
 						"Se prepare!",
@@ -60,7 +61,7 @@ export default class TypeRaceCommand implements IBotCommand {
 						setTimeout(resolve, 1000);
 					});
 					const embed = new Discord.MessageEmbed()
-						.setColor("#0079DB")
+						.setColor(config.primaryColor)
 						.setTitle("Corrida de digitação")
 						.addField(
 							"Se prepare!",
@@ -79,7 +80,7 @@ export default class TypeRaceCommand implements IBotCommand {
 
 				let secondsToFinishRace = 60;
 				const raceEmbed = new Discord.MessageEmbed()
-					.setColor("#0079DB")
+					.setColor(config.primaryColor)
 					.setTitle("Corrida de digitação")
 					.setDescription(
 						`[${secondsToFinishRace}] Digite: **${phrase}**`
@@ -112,7 +113,7 @@ export default class TypeRaceCommand implements IBotCommand {
 
 				const race = cache.get(message.channel.id);
 				if (race.winners.length > 0) {
-					finalEmbed.setColor("#0079DB");
+					finalEmbed.setColor(config.primaryColor);
 					race.winners.forEach((winner, index) => {
 						const winnerUser = message.guild.members.cache.get(
 							winner.id

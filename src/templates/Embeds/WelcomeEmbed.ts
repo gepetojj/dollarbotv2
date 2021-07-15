@@ -1,10 +1,11 @@
 import Discord from "discord.js";
+import config from "../../config";
 import { IEmbedTemplate } from "./IEmbedTemplate";
 
 export class WelcomeEmbed implements IEmbedTemplate {
 	generate(guildOwner: Discord.User): Discord.MessageEmbed {
 		const welcomeEmbed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("O dollarbot foi adicionado em seu servidor.")
 			.setDescription(
 				`Obrigado ${guildOwner.username}. Irei ser configurado automaticamente e já começar a funcionar!`

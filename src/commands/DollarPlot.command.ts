@@ -1,4 +1,5 @@
 import Discord from "discord.js";
+import config from "../config";
 import { Logger, dayjs } from "../loaders";
 import { AwesomeAPIProvider, GepetoServicesChartProvider } from "../providers";
 import { CommandErrorsEmbed } from "../templates";
@@ -35,7 +36,7 @@ export default class DollarPlotCommand implements IBotCommand {
 		const dollarProvider = new AwesomeAPIProvider();
 		const chartProvider = new GepetoServicesChartProvider();
 		const firstEmbed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Variação do dólar")
 			.addField("Aguarde...", "Gerando gráfico...");
 		const messageSended = await message.reply(firstEmbed);
@@ -44,7 +45,7 @@ export default class DollarPlotCommand implements IBotCommand {
 			.getDollarValuesInLastDays(7)
 			.then(async (lastValues) => {
 				const embed = new Discord.MessageEmbed()
-					.setColor("#0079DB")
+					.setColor(config.primaryColor)
 					.setTitle("Variação do dólar")
 					.setFooter(
 						`Comando executado por: ${message.author.tag}`,

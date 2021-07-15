@@ -12,6 +12,7 @@ import { IBotCommand } from "../commands/IBotCommand";
 import { CommandsLoader, Logger, dayjs } from "./index";
 import { DBGuild } from "../entities";
 import { AwesomeAPIProvider } from "../providers";
+import config from "../config";
 
 export interface IDiscordLoaderSettings {
 	richPresence?: {
@@ -312,7 +313,7 @@ export class DiscordLoader {
 							.getLastDollarValue()
 							.then(async ({ value }) => {
 								const embed = new Discord.MessageEmbed()
-									.setColor("#0079DB")
+									.setColor(config.primaryColor)
 									.setTitle("Valor do dólar")
 									.addField(
 										"Valor atual do dólar norte-americano:",
@@ -344,7 +345,7 @@ export class DiscordLoader {
 				.getLastDollarValue()
 				.then(async ({ value }) => {
 					const embed = new Discord.MessageEmbed()
-						.setColor("#0079DB")
+						.setColor(config.primaryColor)
 						.setTitle("Valor do dólar")
 						.addField(
 							"Valor atual do dólar norte-americano:",

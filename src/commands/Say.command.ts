@@ -2,6 +2,7 @@ import Discord from "discord.js";
 import { dayjs } from "../loaders";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
+import config from "../config";
 
 export default class SayCommand implements IBotCommand {
 	name: string;
@@ -52,7 +53,7 @@ export default class SayCommand implements IBotCommand {
 		}
 
 		const embed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Mensagem:")
 			.setDescription(messageToSay);
 

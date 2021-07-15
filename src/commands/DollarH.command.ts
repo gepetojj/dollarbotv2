@@ -1,4 +1,5 @@
 import Discord from "discord.js";
+import config from "../config";
 import { Logger } from "../loaders";
 import { AwesomeAPIProvider } from "../providers";
 import { CommandErrorsEmbed } from "../templates";
@@ -57,7 +58,7 @@ export default class DollarHCommand implements IBotCommand {
 
 		const provider = new AwesomeAPIProvider();
 		const firstEmbed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Valores do dólar")
 			.addField("Carregando...", "Carregando...");
 		const messageSended = await message.reply(firstEmbed);
@@ -66,7 +67,7 @@ export default class DollarHCommand implements IBotCommand {
 			.getDollarValuesInLastDays(Number(args[0]))
 			.then(async (lastValues) => {
 				const embed = new Discord.MessageEmbed()
-					.setColor("#0079DB")
+					.setColor(config.primaryColor)
 					.setTitle(
 						Number(args[0]) === 1
 							? `Valor do dólar ontem`

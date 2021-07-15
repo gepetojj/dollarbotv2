@@ -1,4 +1,5 @@
 import Discord from "discord.js";
+import config from "../../config";
 import { IEmbedTemplate } from "./IEmbedTemplate";
 
 export class AdminSettingsEmbed implements IEmbedTemplate {
@@ -7,7 +8,7 @@ export class AdminSettingsEmbed implements IEmbedTemplate {
 		switch (step) {
 			case 1:
 				adminSettings
-					.setColor("#0079DB")
+					.setColor(config.primaryColor)
 					.setTitle("Olá, administradores!")
 					.setDescription(
 						"Este canal deve ser exclusivo para vocês, então vamos fazer isso acontecer."
@@ -28,11 +29,11 @@ export class AdminSettingsEmbed implements IEmbedTemplate {
 						"Desenvolvido por Gepetojj#2460",
 						guildOwner.avatarURL()
 					);
-                break
+				break;
 
 			case 2:
 				adminSettings
-					.setColor("#0079DB")
+					.setColor(config.primaryColor)
 					.setTitle("Primeira etapa concluída!")
 					.setDescription(
 						"Minha configuração está chegando ao fim, falta pouco."
@@ -53,7 +54,7 @@ export class AdminSettingsEmbed implements IEmbedTemplate {
 						"Desenvolvido por Gepetojj#2460",
 						guildOwner.avatarURL()
 					);
-                break
+				break;
 		}
 		return adminSettings;
 	}

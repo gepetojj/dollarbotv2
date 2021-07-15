@@ -4,6 +4,7 @@ import { FirebaseWalletRepository } from "../repositories";
 import { Logger, ModernEmbedsLoader } from "../loaders";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
+import config from "../config";
 
 export default class DollarsCommand implements IBotCommand {
 	name: string;
@@ -28,13 +29,13 @@ export default class DollarsCommand implements IBotCommand {
 		message.channel.startTyping();
 
 		const firstEmbed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Seu saldo do dollarbot")
 			.addField("Carregando...", "Carregando...");
 		const messageSended = await message.reply(firstEmbed);
 
 		const embed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Seu saldo do dollarbot")
 			.setFooter(
 				`Comando executado por: ${message.author.tag}`,
@@ -74,10 +75,10 @@ export default class DollarsCommand implements IBotCommand {
 						imageName
 					);
 				})
-				.catch(async (error) => {
+				.catch(async () => {
 					const errorEmbed = new CommandErrorsEmbed()
 						.generate(message)
-						.addField("Causa do erro:", error);
+						.addField("Causa do erro:", "Não foi possível retornar sua carteira.");
 
 					message.channel.stopTyping(true);
 					await messageSended.delete();

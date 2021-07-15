@@ -42,13 +42,13 @@ export default class SetCommand implements IBotCommand {
 		}
 
 		const firstEmbed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Sincronizando")
 			.addField("Carregando...", "Carregando...");
 		const messageSended = await message.reply(firstEmbed);
 
 		const embed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Sincronização")
 			.setFooter(
 				`Comando executado por: ${message.author.tag}`,

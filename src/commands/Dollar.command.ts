@@ -1,4 +1,6 @@
 import Discord from "discord.js";
+
+import config from "../config";
 import { dayjs, Logger } from "../loaders";
 import { AwesomeAPIProvider } from "../providers";
 import { CommandErrorsEmbed } from "../templates";
@@ -28,7 +30,7 @@ export default class DollarCommand implements IBotCommand {
 
 		const provider = new AwesomeAPIProvider();
 		const firstEmbed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Valor do dólar")
 			.addField("Carregando...", "Carregando...");
 		const messageSended = await message.reply(firstEmbed);
@@ -37,7 +39,7 @@ export default class DollarCommand implements IBotCommand {
 			.getLastDollarValue()
 			.then(async (lastValue) => {
 				const embed = new Discord.MessageEmbed()
-					.setColor("#0079DB")
+					.setColor(config.primaryColor)
 					.setTitle("Valor do dólar")
 					.addField(
 						"Última alta do dólar norte-americano:",
@@ -50,7 +52,9 @@ export default class DollarCommand implements IBotCommand {
 					.setFooter(
 						`Este valor foi atualizado em: ${dayjs(
 							lastValue.timestamp
-						).tz().format("hh:mma DD/MM/YYYY")}`,
+						)
+							.tz()
+							.format("hh:mma DD/MM/YYYY")}`,
 						message.author.avatarURL()
 					);
 

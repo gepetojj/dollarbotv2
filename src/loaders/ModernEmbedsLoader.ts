@@ -63,7 +63,10 @@ export class ModernEmbedsLoader {
 									quality: 100,
 									type: "png",
 									puppeteerArgs: {
-										args: ["--no-sandbox"],
+										args: [
+											"--no-sandbox",
+											"--disable-setuid-sandbox",
+										],
 									},
 									output: path.resolve(tempPath, imageName),
 								})

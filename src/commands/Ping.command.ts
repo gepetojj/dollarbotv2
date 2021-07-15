@@ -1,6 +1,7 @@
 import Discord from "discord.js";
 import { IBotCommand } from "./IBotCommand";
 import { dayjs } from "../loaders/index";
+import config from "../config";
 
 export default class PingCommand implements IBotCommand {
 	name: string;
@@ -27,7 +28,7 @@ export default class PingCommand implements IBotCommand {
 			.format("SSS");
 
 		const embed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Teste de latência.")
 			.addField("Latência do bot", `${latency}ms`)
 			.setFooter(

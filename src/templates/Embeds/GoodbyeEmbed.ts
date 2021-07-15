@@ -1,10 +1,11 @@
 import Discord from "discord.js";
+import config from "../../config";
 import { IEmbedTemplate } from "./IEmbedTemplate";
 
 export class GoodbyeEmbed implements IEmbedTemplate {
 	generate(guildOwner: Discord.User, clientId: string): Discord.MessageEmbed {
 		const goodbyeEmbed = new Discord.MessageEmbed()
-			.setColor("#0079DB")
+			.setColor(config.primaryColor)
 			.setTitle("Desculpe :(")
 			.setDescription(
 				`Desculpe ${guildOwner.username}, se não fui um bot bom o suficiente...`
