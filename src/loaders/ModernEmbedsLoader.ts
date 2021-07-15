@@ -66,6 +66,7 @@ export class ModernEmbedsLoader {
 										args: [
 											"--no-sandbox",
 											"--disable-setuid-sandbox",
+											"--no-zygote"
 										],
 									},
 									output: path.resolve(tempPath, imageName),
