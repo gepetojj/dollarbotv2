@@ -4,7 +4,8 @@
 
 ## Objetivo
 
-O dollarbot tem como objetivo principal facilitar a informação sobre o dólar norte-americano pelo Discord.
+O dollarbot tem como objetivo principal facilitar a informação sobre o dólar norte-americano pelo Discord.  
+Acesse o site do dollarbot clicando [aqui](https://dollarbotds.vercel.app).
 
 ## Tecnologias
 

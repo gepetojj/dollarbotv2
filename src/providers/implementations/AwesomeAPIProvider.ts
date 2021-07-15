@@ -22,7 +22,7 @@ export class AwesomeAPIProvider implements IDollarValueProvider {
 		const promise = new Promise<IDollarValue>(async (resolve, reject) => {
 			try {
 				const request = await this.axios.get("/last/USD-BRL");
-				if (request) {
+				if (request.data) {
 					const data: [string, string, string] = [
 						request.data.USDBRL.high,
 						request.data.USDBRL.low,
