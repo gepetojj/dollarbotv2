@@ -4,7 +4,7 @@ import { CommandsLoader, Logger } from "../loaders";
 import { CommandErrorsEmbed } from "../templates";
 import { IBotCommand } from "./IBotCommand";
 
-export default class PingCommand implements IBotCommand {
+export default class HelpCommand implements IBotCommand {
 	name: string;
 	syntax: string;
 	arguments: boolean;
