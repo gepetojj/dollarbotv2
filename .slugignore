@@ -1,2 +1,4 @@
 firebase.json
 .firebaserc
+Dockerfile
+.dockerignore

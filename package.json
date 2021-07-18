@@ -31,7 +31,7 @@
 	"devDependencies": {
 		"@types/ejs": "^3.0.6",
 		"@types/memory-cache": "^0.2.1",
-		"@types/node": "^15.6.1",
+		"@types/node": "^16.3.3",
 		"@types/pino": "^6.3.8",
 		"@types/pino-pretty": "^4.7.0",
 		"ts-node-dev": "^1.1.6",
