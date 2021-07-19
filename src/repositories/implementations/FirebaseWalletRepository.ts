@@ -1,3 +1,4 @@
+import dayjs from "../../loaders/DayjsLoader";
 import { Logger, firestore } from "../../loaders";
 import { IWalletRepository } from "../IWalletRepository";
 import { DBUser } from "../../entities";
@@ -10,7 +11,18 @@ export class FirebaseWalletRepository implements IWalletRepository {
 				const userDoc = await userCollection.doc(user.id).get();
 
 				if (userDoc.exists) {
-					return reject("Você já está cadastrado.");
+					const userData = userDoc.data();
+					if (
+						user.tag === userData.tag &&
+						user.username === userData.username
+					) {
+						return reject("Você já está cadastrado.");
+					}
+					await userCollection.doc(user.id).update({
+						tag: user.tag,
+						username: user.username,
+					});
+					return resolve();
 				}
 
 				await userCollection.doc(user.id).create(user);
@@ -47,7 +59,7 @@ export class FirebaseWalletRepository implements IWalletRepository {
 					id: userData.id,
 					tag: userData.tag,
 					username: userData.username,
-					dollars: userData.dollars,
+					wallet: userData.wallet,
 				});
 
 				return resolve(user);
@@ -64,7 +76,11 @@ export class FirebaseWalletRepository implements IWalletRepository {
 		return promise;
 	}
 
-	subtractUserWallet(userId: string, amount: number): Promise<void> {
+	subtractUserWallet(
+		userId: string,
+		amount: number,
+		item: string
+	): Promise<void> {
 		const promise = new Promise<void>(async (resolve, reject) => {
 			try {
 				const userCollection = firestore.collection("users");
@@ -76,20 +92,28 @@ export class FirebaseWalletRepository implements IWalletRepository {
 					);
 				}
 
+				const time = dayjs().tz().valueOf();
 				const userData = userDoc.data();
-				let user = new DBUser({
+				let user: DBUser = {
 					id: userData.id,
 					tag: userData.tag,
 					username: userData.username,
-					dollars: userData.dollars,
+					wallet: userData.wallet,
+				};
+				user.wallet.dollars -= amount;
+				user.wallet.history.lastTimeChanged = time;
+				user.wallet.history.activity.push({
+					operation: "subtract",
+					quantity: amount,
+					item,
+					time,
 				});
-				user.dollars += amount;
 
 				await userCollection.doc(userId).update(user);
 				return resolve();
 			} catch (err) {
 				Logger.error(
-					`error while attempting to add amount to user wallet: ${err}`
+					`error while attempting to subtract amount to user wallet: ${err}`
 				);
 				Logger.debug(`target user: ${userId}`);
 				return reject(
@@ -100,7 +124,7 @@ export class FirebaseWalletRepository implements IWalletRepository {
 		return promise;
 	}
 
-	addUserWallet(userId: string, amount: number): Promise<void> {
+	addUserWallet(userId: string, amount: number, item: string): Promise<void> {
 		const promise = new Promise<void>(async (resolve, reject) => {
 			try {
 				const userCollection = firestore.collection("users");
@@ -112,14 +136,22 @@ export class FirebaseWalletRepository implements IWalletRepository {
 					);
 				}
 
+				const time = dayjs().tz().valueOf();
 				const userData = userDoc.data();
-				let user = new DBUser({
+				let user: DBUser = {
 					id: userData.id,
 					tag: userData.tag,
 					username: userData.username,
-					dollars: userData.dollars,
+					wallet: userData.wallet,
+				};
+				user.wallet.dollars += amount;
+				user.wallet.history.lastTimeChanged = time;
+				user.wallet.history.activity.push({
+					operation: "add",
+					quantity: amount,
+					item,
+					time,
 				});
-				user.dollars -= amount;
 
 				await userCollection.doc(userId).update(user);
 				return resolve();

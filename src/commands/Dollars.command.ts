@@ -53,10 +53,10 @@ export default class DollarsCommand implements IBotCommand {
 						await modernEmbedsLoader.load(
 							"dollars",
 							message.author.avatarURL(),
-							wallet.dollars
+							wallet.wallet
 						);
 					embed.setDescription(
-						`**${message.author.username}**, você tem $${wallet.dollars} de saldo.`
+						`**${message.author.username}**, você tem $${wallet.wallet.dollars} de saldo.`
 					);
 					embed.setImage(`attachment://${imageName}`);
 
@@ -78,7 +78,10 @@ export default class DollarsCommand implements IBotCommand {
 				.catch(async () => {
 					const errorEmbed = new CommandErrorsEmbed()
 						.generate(message)
-						.addField("Causa do erro:", "Não foi possível retornar sua carteira.");
+						.addField(
+							"Causa do erro:",
+							"Não foi possível retornar sua carteira."
+						);
 
 					message.channel.stopTyping(true);
 					await messageSended.delete();

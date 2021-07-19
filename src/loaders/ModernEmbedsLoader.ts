@@ -3,7 +3,9 @@ import ejs from "ejs";
 import path from "path";
 import crypto from "crypto";
 import nodeHtmlToImage from "node-html-to-image";
+
 import { Logger, dayjs } from "./index";
+import { DBWallet } from "../entities";
 
 export type Template = "dollars";
 
@@ -36,14 +38,14 @@ export class ModernEmbedsLoader {
 							`${template}.ejs`
 						);
 						const tempPath = path.resolve(process.cwd(), "temp");
-						const avatar = args[0];
-						const dollars = args[1];
+						const avatar: string = args[0];
+						const wallet: DBWallet = args[1];
 
 						ejs.renderFile(
 							templatePath,
 							{
 								avatar,
-								dollars,
+								dollars: wallet.dollars,
 							},
 							(err, templateHtml) => {
 								if (err) {
@@ -66,7 +68,7 @@ export class ModernEmbedsLoader {
 										args: [
 											"--no-sandbox",
 											"--disable-setuid-sandbox",
-											"--no-zygote"
+											"--no-zygote",
 										],
 									},
 									output: path.resolve(tempPath, imageName),

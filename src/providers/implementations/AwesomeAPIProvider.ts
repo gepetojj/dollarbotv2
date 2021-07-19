@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from "axios";
-import { IDollarValue, IDollarValueProvider } from "../IDollarValueProvider";
+
 import dayjs from "../../loaders/DayjsLoader";
+import { IDollarValue, IDollarValueProvider } from "../IDollarValueProvider";
 import { Logger } from "../../loaders";
 
 export class AwesomeAPIProvider implements IDollarValueProvider {

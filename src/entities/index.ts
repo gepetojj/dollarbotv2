@@ -1,4 +1,5 @@
 import { DBGuild } from "./DBGuild";
 import { DBUser } from "./DBUser";
+import { DBWallet, DBWalletActivity } from "./DBWallet";
 
-export { DBGuild, DBUser };
+export { DBGuild, DBUser, DBWallet, DBWalletActivity };

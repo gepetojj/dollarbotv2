@@ -1,9 +1,10 @@
 import Discord from "discord.js";
+
+import config from "../config";
 import { FirebaseWalletRepository } from "../repositories";
 import { Logger } from "../loaders";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
-import config from "../config";
 
 export default class SyncCommand implements IBotCommand {
 	name: string;
@@ -32,26 +33,34 @@ export default class SyncCommand implements IBotCommand {
 			.addField("Carregando...", "Carregando...");
 		const messageSended = await message.reply(firstEmbed);
 
-		const embed = new Discord.MessageEmbed()
-			.setColor(config.primaryColor)
-			.setTitle("Sincronização")
-			.addField("Sucesso!", "Usuário sincronizado com sucesso.")
-			.setFooter(
-				`Comando executado por: ${message.author.tag}`,
-				message.author.avatarURL()
-			);
-
 		try {
 			const walletProvider = new FirebaseWalletRepository();
 
-			walletProvider
+			return walletProvider
 				.createUserWallet({
 					id: message.author.id,
 					tag: message.author.tag,
 					username: message.author.username,
-					dollars: 0,
+					wallet: {
+						dollars: 0,
+						history: {
+							lastTimeChanged: 0,
+							activity: [],
+						},
+					},
 				})
 				.then(async () => {
+					const embed = new Discord.MessageEmbed()
+						.setColor(config.primaryColor)
+						.setTitle("Sincronização")
+						.addField(
+							"Sucesso!",
+							"Usuário sincronizado com sucesso."
+						)
+						.setFooter(
+							`Comando executado por: ${message.author.tag}`,
+							message.author.avatarURL()
+						);
 					message.channel.stopTyping(true);
 					await messageSended.edit(embed);
 				})
