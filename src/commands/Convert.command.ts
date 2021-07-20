@@ -3,7 +3,7 @@ import Discord from "discord.js";
 import config from "../config";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
-import { AwesomeAPIProvider } from "../providers";
+import { CurrencyConverterProvider } from "../providers";
 import { Logger } from "../loaders";
 
 export default class ConvertCommand implements IBotCommand {
@@ -73,7 +73,7 @@ export default class ConvertCommand implements IBotCommand {
 				return;
 			}
 
-			const provider = new AwesomeAPIProvider();
+			const provider = new CurrencyConverterProvider();
 			const lastDollarValue = await provider.getLastDollarValue();
 
 			const operation =

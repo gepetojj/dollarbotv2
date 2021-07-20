@@ -1,6 +1,6 @@
 {
 	"name": "dollarbotv2",
-	"version": "1.5.2",
+	"version": "1.5.4",
 	"description": "Um bot feito para o discord que tem funções relacionadas ao valor do dólar.",
 	"main": "build/main.js",
 	"author": "Gepetojj",

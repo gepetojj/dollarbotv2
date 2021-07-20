@@ -11,7 +11,7 @@ import { FirebaseGuildRepository } from "../repositories";
 import { IBotCommand } from "../commands/IBotCommand";
 import { CommandsLoader, Logger, dayjs } from "./index";
 import { DBGuild } from "../entities";
-import { AwesomeAPIProvider } from "../providers";
+import { CurrencyConverterProvider } from "../providers";
 import config from "../config";
 
 export interface IDiscordLoaderSettings {
@@ -191,9 +191,15 @@ export class DiscordLoader {
 				);
 			}
 		}
-		if (!message.content.startsWith(config.globalPrefix) || message.author.bot) return;
+		if (
+			!message.content.startsWith(config.globalPrefix) ||
+			message.author.bot
+		)
+			return;
 
-		const args = message.content.slice(config.globalPrefix.length).split(" ");
+		const args = message.content
+			.slice(config.globalPrefix.length)
+			.split(" ");
 		const commandName = args.shift().toLowerCase();
 		const command: IBotCommand =
 			client.commands.get(commandName) ||
@@ -298,7 +304,7 @@ export class DiscordLoader {
 	}
 
 	private dollarValueLoop(client: Client) {
-		const dollarValueProvider = new AwesomeAPIProvider();
+		const dollarValueProvider = new CurrencyConverterProvider();
 		if (this.dollarMessageCache.length === 0) {
 			const guildsKeys = this.guildsCache.keys();
 			guildsKeys.forEach(async (guildKey) => {

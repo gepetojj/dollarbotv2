@@ -2,7 +2,7 @@ import Discord from "discord.js";
 
 import config from "../config";
 import { dayjs, Logger } from "../loaders";
-import { AwesomeAPIProvider } from "../providers";
+import { CurrencyConverterProvider } from "../providers";
 import { CommandErrorsEmbed } from "../templates";
 import { IBotCommand } from "./IBotCommand";
 
@@ -28,7 +28,7 @@ export default class DollarCommand implements IBotCommand {
 	async command(message: Discord.Message) {
 		message.channel.startTyping();
 
-		const provider = new AwesomeAPIProvider();
+		const provider = new CurrencyConverterProvider();
 		const firstEmbed = new Discord.MessageEmbed()
 			.setColor(config.primaryColor)
 			.setTitle("Valor do dólar")
@@ -41,10 +41,6 @@ export default class DollarCommand implements IBotCommand {
 				const embed = new Discord.MessageEmbed()
 					.setColor(config.primaryColor)
 					.setTitle("Valor do dólar")
-					.addField(
-						"Última alta do dólar norte-americano:",
-						`$1 --> R$${lastValue.high}`
-					)
 					.addField(
 						"Valor atual do dólar norte-americano:",
 						`$1 --> R$${lastValue.value}`

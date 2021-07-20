@@ -28,7 +28,7 @@ def create_plot(x, y):
              title="Valores dos últimos 7 dias")
     graf_id = datetime.datetime.now().strftime("%d-%m-%Y-") + secrets.token_hex(5)
     plot.xticks(np.arange(7), x)
-    plot.ylim([4.5, 6.5])
+    plot.ylim([4.5, 6])
     plot.grid(True, axis="y", color="black", ls="-.", lw=0.18)
     foto.savefig(f"temp/{graf_id}.png")
     filename = graf_id + ".png"

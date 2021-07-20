@@ -2,7 +2,10 @@ import Discord from "discord.js";
 
 import config from "../config";
 import { Logger, dayjs } from "../loaders";
-import { AwesomeAPIProvider, GepetoServicesChartProvider } from "../providers";
+import {
+	CurrencyConverterProvider,
+	GepetoServicesChartProvider,
+} from "../providers";
 import { CommandErrorsEmbed } from "../templates";
 import { IBotCommand } from "./IBotCommand";
 
@@ -34,7 +37,7 @@ export default class DollarPlotCommand implements IBotCommand {
 	async command(message: Discord.Message) {
 		message.channel.startTyping();
 
-		const dollarProvider = new AwesomeAPIProvider();
+		const dollarProvider = new CurrencyConverterProvider();
 		const chartProvider = new GepetoServicesChartProvider();
 		const firstEmbed = new Discord.MessageEmbed()
 			.setColor(config.primaryColor)

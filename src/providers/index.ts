@@ -1,6 +1,6 @@
 import {
-	AwesomeAPIProvider,
+	CurrencyConverterProvider,
 	GepetoServicesChartProvider,
 } from "./implementations";
 
-export { AwesomeAPIProvider, GepetoServicesChartProvider };
+export { CurrencyConverterProvider, GepetoServicesChartProvider };

@@ -2,7 +2,7 @@ import Discord from "discord.js";
 
 import config from "../config";
 import { Logger } from "../loaders";
-import { AwesomeAPIProvider } from "../providers";
+import { CurrencyConverterProvider } from "../providers";
 import { CommandErrorsEmbed } from "../templates";
 import { IBotCommand } from "./IBotCommand";
 
@@ -28,15 +28,18 @@ export default class DollarHCommand implements IBotCommand {
 	async command(message: Discord.Message, args: string[]) {
 		message.channel.startTyping();
 
-		if (args.length < 1 || Number(args[0]) === 0 || Number(args[0]) > 20) {
+		if (args.length < 1 || Number(args[0]) === 0 || Number(args[0]) > 8) {
 			const embed = new CommandErrorsEmbed()
 				.generate(message)
 				.addField("Causa do erro:", "Argumentos inválidos.")
 				.addField(
 					"Possível causa do erro:",
-					"Limite de dias atingidos. (mínimo 1, máximo 20)"
+					"Limite de dias atingidos. (mínimo 1, máximo 8)"
 				)
-				.addField("Modo de uso deste comando:", `${config.globalPrefix}${this.syntax}`);
+				.addField(
+					"Modo de uso deste comando:",
+					`${config.globalPrefix}${this.syntax}`
+				);
 
 			try {
 				message.channel.stopTyping(true);
@@ -57,7 +60,7 @@ export default class DollarHCommand implements IBotCommand {
 			}
 		}
 
-		const provider = new AwesomeAPIProvider();
+		const provider = new CurrencyConverterProvider();
 		const firstEmbed = new Discord.MessageEmbed()
 			.setColor(config.primaryColor)
 			.setTitle("Valores do dólar")

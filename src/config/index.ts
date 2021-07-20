@@ -10,6 +10,7 @@ const config = {
 	ce: String(process.env.CE),
 	cid: String(process.env.CID),
 	curl: String(process.env.CURL),
+	currencyConverterKey: String(process.env.CCKEY),
 
 	richPresence: {
 		options: ["monopoly.", "dólares fora.", "jogo do bixo.", "tempo fora."],
@@ -17,7 +18,7 @@ const config = {
 	},
 	globalPrefix: process.env.NODE_ENV === "development" ? "." : ">",
 	primaryColor: "#7289DA",
-	version: "1.5.2",
+	version: "1.5.4",
 };
 
 export default config;
