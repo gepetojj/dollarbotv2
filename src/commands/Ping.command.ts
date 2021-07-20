@@ -1,7 +1,8 @@
 import Discord from "discord.js";
+
+import config from "../config";
 import { IBotCommand } from "./IBotCommand";
 import { dayjs } from "../loaders/index";
-import config from "../config";
 
 export default class PingCommand implements IBotCommand {
 	name: string;

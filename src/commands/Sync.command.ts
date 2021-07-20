@@ -42,6 +42,7 @@ export default class SyncCommand implements IBotCommand {
 					tag: message.author.tag,
 					username: message.author.username,
 					wallet: {
+						color: config.primaryColor,
 						dollars: 0,
 						history: {
 							lastTimeChanged: 0,

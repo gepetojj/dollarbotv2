@@ -191,9 +191,9 @@ export class DiscordLoader {
 				);
 			}
 		}
-		if (!message.content.startsWith(">") || message.author.bot) return;
+		if (!message.content.startsWith(config.globalPrefix) || message.author.bot) return;
 
-		const args = message.content.slice(">".length).split(" ");
+		const args = message.content.slice(config.globalPrefix.length).split(" ");
 		const commandName = args.shift().toLowerCase();
 		const command: IBotCommand =
 			client.commands.get(commandName) ||
@@ -226,7 +226,7 @@ export class DiscordLoader {
 					)
 					.addField(
 						"Modo de uso deste comando:",
-						`>${command.syntax}`
+						`${config.globalPrefix}${command.syntax}`
 					)
 			);
 

@@ -1,11 +1,12 @@
 import Discord from "discord.js";
 import memoryCache from "memory-cache";
+
+import config from "../config";
 import { dayjs } from "../loaders";
 import { CommandErrorsEmbed } from "../templates";
 import { LocalTypeRaceRepository } from "../extensions/TypeRace";
 import { ITypeRaceCache } from "../loaders/DiscordLoader";
 import { IBotCommand } from "./IBotCommand";
-import config from "../config";
 
 export default class TypeRaceCommand implements IBotCommand {
 	name: string;

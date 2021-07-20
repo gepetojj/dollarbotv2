@@ -11,6 +11,7 @@ export class DBWalletActivity {
 
 export class DBWallet {
 	public dollars: number;
+	public color: string;
 	public history: {
 		lastTimeChanged: number;
 		activity: DBWalletActivity[];

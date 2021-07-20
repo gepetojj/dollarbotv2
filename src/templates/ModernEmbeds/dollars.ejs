@@ -5,32 +5,54 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
 	</head>
-	<body>
+	<body style="background-color: <%= color %>">
 		<style>
 			@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 			body {
-				background: #7289DA;
-				width: 333px;
-				height: 160px;
+				width: 330px;
+				height: 165px;
+				padding-left: 0.4rem;
+				padding-top: 17px;
 			}
 			h3,
 			p {
 				font-family: "Poppins", sans-serif;
 				margin: 0;
-				color: #000000;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				max-width: 150px;
 			}
 			.card {
 				display: flex;
 				flex-direction: row;
 				justify-content: center;
 				border-radius: 4px;
-				padding: 10px;
-				margin: 50px 5px;
+				padding: 10px 10px 10px 0;
+				margin: 0 5px;
 				width: 300px;
-				background: #7289DA;
 				box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 				backdrop-filter: blur(6px);
 				-webkit-backdrop-filter: blur(6px);
+			}
+			.user-avatar {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			.user-avatar img {
+				border-radius: 4px;
+				width: 80%;
+			}
+			.user-avatar h3 {
+				justify-content: center;
+				align-items: center;
+				font-size: 1rem;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				max-width: 100px;
 			}
 			.user-info {
 				display: flex;
@@ -43,16 +65,17 @@
 				padding-top: 5px;
 			}
 		</style>
-		<div class="card">
+		<div class="card" style="background-color: <%= color %>">
 			<div class="user-avatar">
 				<img src="<%= avatar %>" alt="avatar do usuario" />
+				<h3 style="color: <%= textColor %>"><%= username %></h3>
 			</div>
 			<div class="user-info">
 				<div class="user-info-title">
-					<h3>Saldo na conta:</h3>
+					<h3 style="color: <%= textColor %>">Saldo na conta:</h3>
 				</div>
 				<div class="user-info-data">
-					<p>$ <%= dollars %></p>
+					<p style="color: <%= textColor %>">$ <%= dollars %></p>
 				</div>
 			</div>
 		</div>

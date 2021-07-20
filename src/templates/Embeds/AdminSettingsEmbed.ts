@@ -1,4 +1,5 @@
 import Discord from "discord.js";
+
 import config from "../../config";
 import { IEmbedTemplate } from "./IEmbedTemplate";
 
@@ -15,7 +16,7 @@ export class AdminSettingsEmbed implements IEmbedTemplate {
 					)
 					.addField(
 						"Defina um cargo que possa alterar minhas configurações. (Pode ser mais de um)",
-						"Envie: `>set adminrole @cargoescolhido`"
+						`Envie: '${config.globalPrefix}set adminrole @cargoescolhido'`
 					)
 					.addField(
 						"Configure este canal para que só vocês vejam.",
@@ -40,11 +41,11 @@ export class AdminSettingsEmbed implements IEmbedTemplate {
 					)
 					.addField(
 						"Atualize minha lista de usuários.",
-						"Se seu servidor tem 100 membros ou menos, eu já fiz isso. Mas se não, você pode ativar a sincronização a cada usuário que entrar futuramente. Envie: `>set sync active`"
+						`Se seu servidor tem 100 membros ou menos, eu já fiz isso. Mas se não, você pode ativar a sincronização a cada usuário que entrar futuramente. Envie: '${config.globalPrefix}set sync active'`
 					)
 					.addField(
 						"Mude o meu prefix.",
-						"Prefix é o símbolo usado para me chamar (padrão: `>`), você pode mudar ele. Envie: `>set prefix simboloescolhido`"
+						`Prefix é o símbolo usado para me chamar (padrão: '${config.globalPrefix}'), você pode mudar ele. Envie: '${config.globalPrefix}set prefix simboloescolhido'`
 					)
 					.addField(
 						"Pronto!",

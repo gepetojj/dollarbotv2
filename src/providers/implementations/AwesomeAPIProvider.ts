@@ -45,7 +45,6 @@ export class AwesomeAPIProvider implements IDollarValueProvider {
 				Logger.error(
 					`error while attempting to get dollar data from api: ${err.message}`
 				);
-				Logger.debug(`response from the server: ${err.response.data}`);
 				return reject();
 			}
 		});
@@ -78,7 +77,6 @@ export class AwesomeAPIProvider implements IDollarValueProvider {
 				Logger.error(
 					`error while attempting to get dollar data from api: ${err.message}`
 				);
-				Logger.debug(`response from the server: ${err.response.data}`);
 				return reject();
 			}
 		});

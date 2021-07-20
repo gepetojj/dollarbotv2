@@ -1,10 +1,11 @@
 import Discord from "discord.js";
+
+import config from "../config";
 import { GepetoServicesChartProvider } from "../providers";
 import { FirebaseWalletRepository } from "../repositories";
 import { Logger, ModernEmbedsLoader } from "../loaders";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
-import config from "../config";
 
 export default class DollarsCommand implements IBotCommand {
 	name: string;
@@ -18,7 +19,7 @@ export default class DollarsCommand implements IBotCommand {
 	constructor() {
 		this.name = "dollars";
 		this.syntax = "dollars";
-		this.aliases = ["dolares", "dólares"];
+		this.aliases = ["dolares", "dólares", "wallet"];
 		this.arguments = false;
 		this.guildOnly = false;
 		this.description = "Informa o saldo do usuário.";
@@ -53,7 +54,7 @@ export default class DollarsCommand implements IBotCommand {
 						await modernEmbedsLoader.load(
 							"dollars",
 							message.author.avatarURL(),
-							wallet.wallet
+							wallet
 						);
 					embed.setDescription(
 						`**${message.author.username}**, você tem $${wallet.wallet.dollars} de saldo.`
@@ -80,7 +81,7 @@ export default class DollarsCommand implements IBotCommand {
 						.generate(message)
 						.addField(
 							"Causa do erro:",
-							"Não foi possível retornar sua carteira."
+							"Não foi possível retornar sua carteira. Verifique se você está sincronizado."
 						);
 
 					message.channel.stopTyping(true);

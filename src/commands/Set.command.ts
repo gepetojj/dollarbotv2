@@ -1,4 +1,5 @@
 import Discord from "discord.js";
+
 import config from "../config";
 import {
 	FirebaseGuildRepository,
@@ -68,7 +69,7 @@ export default class SetCommand implements IBotCommand {
 					const errorEmbed = new CommandErrorsEmbed()
 						.generate(message)
 						.addField("Causa do erro:", "Parâmetro inválido.")
-						.addField("Uso do comando:", `>${this.syntax}`);
+						.addField("Uso do comando:", `${config.globalPrefix}${this.syntax}`);
 					await messageSended.edit(errorEmbed);
 					return;
 
@@ -78,7 +79,7 @@ export default class SetCommand implements IBotCommand {
 						const errorEmbed = new CommandErrorsEmbed()
 							.generate(message)
 							.addField("Causa do erro:", "Opção inválida.")
-							.addField("Uso do comando:", `>${this.syntax}`);
+							.addField("Uso do comando:", `${config.globalPrefix}${this.syntax}`);
 						await messageSended.edit(errorEmbed);
 						return;
 					}
@@ -121,7 +122,7 @@ export default class SetCommand implements IBotCommand {
 						const errorEmbed = new CommandErrorsEmbed()
 							.generate(message)
 							.addField("Causa do erro:", "Opção inválida.")
-							.addField("Uso do comando:", `>${this.syntax}`);
+							.addField("Uso do comando:", `${config.globalPrefix}${this.syntax}`);
 						message.channel.stopTyping(true);
 						await messageSended.edit(errorEmbed);
 						return;
@@ -135,7 +136,7 @@ export default class SetCommand implements IBotCommand {
 								"Causa do erro:",
 								"Marque o cargo, usando o @"
 							)
-							.addField("Uso do comando:", `>${this.syntax}`);
+							.addField("Uso do comando:", `${config.globalPrefix}${this.syntax}`);
 						message.channel.stopTyping(true);
 						await messageSended.edit(errorEmbed);
 						return;
@@ -169,7 +170,7 @@ export default class SetCommand implements IBotCommand {
 								"Causa do erro:",
 								"Marque o cargo, usando o @"
 							)
-							.addField("Uso do comando:", `>${this.syntax}`);
+							.addField("Uso do comando:", `${config.globalPrefix}${this.syntax}`);
 						message.channel.stopTyping(true);
 						await messageSended.edit(errorEmbed);
 						return;
@@ -187,7 +188,7 @@ export default class SetCommand implements IBotCommand {
 								"Causa do erro:",
 								"Operação, quantidade ou usuário inválido."
 							)
-							.addField("Uso do comando:", `>${this.syntax}`);
+							.addField("Uso do comando:", `${config.globalPrefix}${this.syntax}`);
 						message.channel.stopTyping(true);
 						await messageSended.edit(errorEmbed);
 						return;

@@ -1,6 +1,6 @@
 {
 	"name": "dollarbotv2",
-	"version": "1.4.2",
+	"version": "1.5.2",
 	"description": "Um bot feito para o discord que tem funções relacionadas ao valor do dólar.",
 	"main": "build/main.js",
 	"author": "Gepetojj",
@@ -26,6 +26,7 @@
 		"pino-pretty": "^5.0.0",
 		"pm2": "^4.5.6",
 		"python-shell": "^3.0.0",
+		"tinycolor2": "^1.4.2",
 		"utf-8-validate": "^5.0.5"
 	},
 	"devDependencies": {
@@ -34,6 +35,7 @@
 		"@types/node": "^16.3.3",
 		"@types/pino": "^6.3.8",
 		"@types/pino-pretty": "^4.7.0",
+		"@types/tinycolor2": "^1.4.3",
 		"ts-node-dev": "^1.1.6",
 		"typescript": "^4.3.5"
 	}

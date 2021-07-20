@@ -1,4 +1,5 @@
 import Discord from "discord.js";
+
 import config from "../config";
 import { Logger } from "../loaders";
 import { AwesomeAPIProvider } from "../providers";
@@ -35,7 +36,7 @@ export default class DollarHCommand implements IBotCommand {
 					"Possível causa do erro:",
 					"Limite de dias atingidos. (mínimo 1, máximo 20)"
 				)
-				.addField("Modo de uso deste comando:", `>${this.syntax}`);
+				.addField("Modo de uso deste comando:", `${config.globalPrefix}${this.syntax}`);
 
 			try {
 				message.channel.stopTyping(true);

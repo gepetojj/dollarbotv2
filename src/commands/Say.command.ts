@@ -1,8 +1,9 @@
 import Discord from "discord.js";
+
+import config from "../config";
 import { dayjs } from "../loaders";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
-import config from "../config";
 
 export default class SayCommand implements IBotCommand {
 	name: string;

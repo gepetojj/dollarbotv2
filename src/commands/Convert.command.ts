@@ -1,9 +1,9 @@
 import Discord from "discord.js";
 
+import config from "../config";
 import { IBotCommand } from "./IBotCommand";
 import { CommandErrorsEmbed } from "../templates";
 import { AwesomeAPIProvider } from "../providers";
-import config from "../config";
 import { Logger } from "../loaders";
 
 export default class ConvertCommand implements IBotCommand {

@@ -15,8 +15,9 @@ const config = {
 		options: ["monopoly.", "dólares fora.", "jogo do bixo.", "tempo fora."],
 		timeout: 7000,
 	},
+	globalPrefix: process.env.NODE_ENV === "development" ? "." : ">",
 	primaryColor: "#7289DA",
-	version: "1.4.2",
+	version: "1.5.2",
 };
 
 export default config;

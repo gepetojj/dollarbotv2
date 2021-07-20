@@ -2,10 +2,11 @@ import fs from "fs";
 import ejs from "ejs";
 import path from "path";
 import crypto from "crypto";
+import tinyColor from "tinycolor2";
 import nodeHtmlToImage from "node-html-to-image";
 
 import { Logger, dayjs } from "./index";
-import { DBWallet } from "../entities";
+import { DBUser } from "../entities";
 
 export type Template = "dollars";
 
@@ -39,13 +40,22 @@ export class ModernEmbedsLoader {
 						);
 						const tempPath = path.resolve(process.cwd(), "temp");
 						const avatar: string = args[0];
-						const wallet: DBWallet = args[1];
+						const wallet: DBUser = args[1];
+
+						const colorBrightness = tinyColor(
+							wallet.wallet.color
+						).getBrightness();
+						const isColorDark = colorBrightness < 50;
+						const textColor = isColorDark ? "#f0f0f0" : "#010101";
 
 						ejs.renderFile(
 							templatePath,
 							{
 								avatar,
-								dollars: wallet.dollars,
+								username: wallet.username,
+								dollars: wallet.wallet.dollars,
+								color: wallet.wallet.color,
+								textColor,
 							},
 							(err, templateHtml) => {
 								if (err) {

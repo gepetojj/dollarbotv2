@@ -1,4 +1,5 @@
 import Discord from "discord.js";
+
 import config from "../config";
 import { CommandsLoader, Logger } from "../loaders";
 import { CommandErrorsEmbed } from "../templates";
