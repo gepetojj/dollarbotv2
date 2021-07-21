@@ -47,7 +47,7 @@ export default class SayCommand implements IBotCommand {
 		if (args[0] === "-s" && silentAllowedTo.includes(message.author.id)) {
 			silent = true;
 		}
-		for (let word in args) {
+		for (let word = 0; word < args.length; word++) {
 			if (args[word] !== "-s") {
 				messageToSay += `${args[word]} `;
 			}

@@ -139,9 +139,9 @@ export default class TypeRaceCommand implements IBotCommand {
 			});
 		} else {
 			let userAttempt = "";
-			for (let word in args) {
+			for (let word = 0; word < args.length; word++) {
 				userAttempt +=
-					Number(word) === args.length - 1
+					word === args.length - 1
 						? `${args[word]}`
 						: `${args[word]} `;
 			}

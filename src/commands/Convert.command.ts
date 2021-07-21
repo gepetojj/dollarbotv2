@@ -45,7 +45,7 @@ export default class ConvertCommand implements IBotCommand {
 				return;
 			}
 
-			if (Number(value) === NaN) {
+			if (isNaN(Number(value))) {
 				const errorEmbed = new CommandErrorsEmbed()
 					.generate(message)
 					.addField(
