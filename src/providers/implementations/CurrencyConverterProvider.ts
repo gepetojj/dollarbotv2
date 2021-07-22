@@ -4,8 +4,8 @@ import config from "../../config";
 import { IDollarValue, IDollarValueProvider } from "../IDollarValueProvider";
 import { Logger, dayjs } from "../../loaders";
 
-export interface ICurrencyConverterResponse {
-	USD_BRL: { val: number };
+export interface IAwesomeAPIResponse {
+	USDBRL: { ask: string };
 }
 
 export interface ICurrencyConverterMultiResponse {
@@ -17,8 +17,7 @@ export class CurrencyConverterProvider implements IDollarValueProvider {
 
 	constructor() {
 		this.axios = axios.create({
-			baseURL: `https://free.currconv.com/api/v7/convert?apiKey=${config.currencyConverterKey}&compact=ultra`,
-			timeout: 5000,
+			timeout: 10000,
 			headers: {
 				"User-Agent": "dollarbotv2",
 				"X-User-Agent-Details":
@@ -30,11 +29,14 @@ export class CurrencyConverterProvider implements IDollarValueProvider {
 	getLastDollarValue(): Promise<IDollarValue> {
 		const promise = new Promise<IDollarValue>(async (resolve, reject) => {
 			try {
-				const request = await this.axios.get("&q=USD_BRL");
+				const request = await this.axios.get(
+					"https://economia.awesomeapi.com.br/json/last/USD-BRL"
+				);
 				if (request.data) {
-					const data: ICurrencyConverterResponse =
-						request.data.results;
-					const value: number = Number(data.USD_BRL.val.toFixed(2));
+					const data: IAwesomeAPIResponse = request.data.results;
+					const value: number = Number(
+						Number(data.USDBRL.ask).toFixed(2)
+					);
 
 					const dataFormatted: IDollarValue = {
 						high: Number(value),
@@ -67,7 +69,7 @@ export class CurrencyConverterProvider implements IDollarValueProvider {
 				const targetDateFormatted = targetDate.format("YYYY-MM-DD");
 
 				const request = await this.axios.get(
-					`&q=USD_BRL&date=${targetDateFormatted}&endDate=${todayFormatted}`
+					`https://free.currconv.com/api/v7/convert?apiKey=${config.currencyConverterKey}&compact=ultra&q=USD_BRL&date=${targetDateFormatted}&endDate=${todayFormatted}`
 				);
 				const data: ICurrencyConverterMultiResponse =
 					request.data.results;

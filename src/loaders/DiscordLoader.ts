@@ -300,7 +300,7 @@ export class DiscordLoader {
 
 		client.setInterval(() => {
 			this.dollarValueLoop(client);
-		}, 5000);
+		}, 30000);
 	}
 
 	private dollarValueLoop(client: Client) {

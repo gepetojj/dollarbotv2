@@ -2,6 +2,8 @@
 
 > Um bot feito para o discord que tem funções relacionadas ao valor do dólar.
 
+[![DeepScan grade](https://deepscan.io/api/teams/14855/projects/17932/branches/427442/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=14855&pid=17932&bid=427442)
+
 ## Objetivo
 
 O dollarbot tem como objetivo principal facilitar a informação sobre o dólar norte-americano pelo Discord.  
@@ -9,7 +11,7 @@ Acesse o site do dollarbot clicando [aqui](https://dollarbotds.vercel.app).
 
 ## Tecnologias
 
-Todas as lib estão no [package.json](https://github.com/gepetojj/dollarbotv2/blob/master/package.json)  
+Todas as lib estão no [package.json](https://github.com/gepetojj/dollarbotv2/blob/master/package.json).  
 
 ### discord.js
 
@@ -33,7 +35,7 @@ Permitindo a execução de scripts Python no nodejs.
 
 ## Comandos
 
-Prefix: `>`  
+Prefix global: `>`  
 Para mais informações, [adicione o dollarbot em seu servidor](https://discord.com/oauth2/authorize?client_id=714842108128657458&scope=bot&permissions=8).
 
 ### dollar
