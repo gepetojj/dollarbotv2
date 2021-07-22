@@ -3,6 +3,7 @@
 > Um bot feito para o discord que tem funções relacionadas ao valor do dólar.
 
 [![DeepScan grade](https://deepscan.io/api/teams/14855/projects/17932/branches/427442/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=14855&pid=17932&bid=427442)
+[![DeepSource](https://deepsource.io/gh/gepetojj/dollarbotv2.svg/?label=active+issues&show_trend=true)](https://deepsource.io/gh/gepetojj/dollarbotv2/?ref=repository-badge)
 
 ## Objetivo
 

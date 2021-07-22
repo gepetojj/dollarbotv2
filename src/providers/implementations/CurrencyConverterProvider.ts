@@ -33,14 +33,12 @@ export class CurrencyConverterProvider implements IDollarValueProvider {
 					"https://economia.awesomeapi.com.br/json/last/USD-BRL"
 				);
 				if (request.data) {
-					const data: IAwesomeAPIResponse = request.data.results;
-					const value: number = Number(
-						Number(data.USDBRL.ask).toFixed(2)
-					);
+					const data: IAwesomeAPIResponse = request.data;
+					const value: number = Number(data.USDBRL.ask.slice(0, 3));
 
 					const dataFormatted: IDollarValue = {
-						high: Number(value),
-						value: Number(value),
+						high: value,
+						value: value,
 						timestamp: dayjs().tz().valueOf(),
 					};
 					return resolve(dataFormatted);
